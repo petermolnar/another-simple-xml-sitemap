@@ -1,0 +1,45 @@
+=== Another Simple XML Sitemap  ===
+Contributors: Cor van Noorloos
+Donate link: https://github.com/corvannoorloos/google-xml-sitemap
+Tags: simple,xml,sitemap
+Requires at least: 3.0
+Tested up to: 3.3.1
+Stable tag: 0.1 
+
+
+Adds a sitemap.xml to your site, for a better search engine visibility;
+
+== Description ==
+
+
+After activation, it automatically adds the sitemap to your site (can be accessed at yoursite.com/sitemap.xml), also, this plugin writes the sitemap url in your robots.txt file, which is a good for search engines.
+
+
+== Installation ==
+ 
+ 
+1) Unpack
+2) upload to Wordpress plugins folder
+3) Activate from Admin menu
+
+
+
+== Changelog ==
+Nothing yet.
+
+= 0.1 = 
+
+the first version of the plugin.
+
+
+== Upgrade Notice == 
+nothin to upgrate.
+
+
+== Screenshots == 
+not available
+
+
+
+
+
