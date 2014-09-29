@@ -1,11 +1,12 @@
 === Another Simple XML Sitemap  ===
 Contributors: Cor van Noorloos,selnomeria
 Donate link: https://github.com/corvannoorloos/google-xml-sitemap
+Author: selnomeria
 Tags: simple,xml,sitemap
 Requires at least: 3.0
-Tested up to: 3.3.1
-Stable tag: 0.1 
-Author: selnomeria
+Tested up to: 3.9
+Stable tag: 1.0.1
+License: Free
 
 Adds a sitemap.xml to your site, for a better search engine visibility;
 
