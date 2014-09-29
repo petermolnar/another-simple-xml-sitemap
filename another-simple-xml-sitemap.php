@@ -1,56 +1,39 @@
 <?php
 /**
- *  Another-Simple-XML-Sitemap (Based on "Google XML Sitemap")
- *
- * @author Cor van Noorloos
- * @license http://www.opensource.org/licenses/gpl-license.php GPL v2.0 (or later)
- * @link https://github.com/corvannoorloos/google-xml-sitemap
- *
- * @wordpress
+ * Based on "Google XML Sitemap" -  https://github.com/corvannoorloos/google-xml-sitemap
+
  * Plugin Name: Another Simple XML Sitemap
- * Plugin URI: https://github.com/corvannoorloos/google-xml-sitemap
- * Description: After activation, it automatically adds the sitemap to your site (can be accessed at yoursite.com/sitemap.xml), also, this plugin writes the sitemap url in your robots.txt file, which is a good for search engines.
- * Author: Cor van Noorloos
+ * Description: (If you have more thatn 50 000 posts, then dont use this plugin, but use plugins like "Better WordPress Google XML Sitemaps" or etc..) After activation, This plugin automatically adds the sitemap to your site (can be accessed at yoursite.com/sitemap.xml), also, this plugin writes the sitemap url in your robots.txt file, which is a good for search engines. 
+ * Author: selnomeria 
+ * Original Author: Cor van Noorloos
+ * @license http://www.opensource.org/licenses/gpl-license.php GPL v2.0 (or later)
  * Version: 0.1.1
- * Author URI: http://corvannoorloos.com/
  */
-function myplugin_activatee() {
-
-$robcont='Sitemap: '.home_url()."/sitemap.xml\r\n\r\n";
-
-
-	$robfile='../robots.txt';
-	if (!file_exists($robfile))
-		{
-				$fhz = fopen($robfile, "w"); fwrite($fhz, $robcont); fclose($fhz);
-		}
-	else 
-		{	//just read
-			$fha = fopen($robfile, "r");
-			$temp_read_rb_cont = fread($fha, filesize($robfile)); 
-			fclose($fha);
-			
-			//if existed robots, but not written the spec.lines
-			if (!stristr($temp_read_rb_cont,'Sitemap:'))
-				{
-				$fhh = fopen($robfile, "w"); fwrite($fhh, $robcont.$temp_read_rb_cont); fclose($fhh);
-				}
-		}
-}
+ 
 register_activation_hook( __FILE__, 'myplugin_activatee' );
+function myplugin_activatee() 
+{
+
+	$rob_sitmp_line='Sitemap: '.home_url()."/sitemap.xml\r\n\r\n";
+	$rob_location=ABSPATH.'/robots.txt';
+	
+	if (!file_exists($rob_location))	{file_put_contents($rob_location,$rob_sitmp_line);}
+	else 
+	{
+		$rb_existing = file_get_contents($rob_location);
+		
+		//if ROBOTS.TXT exists, but line is not written
+		if (!stristr($rb_existing,'Sitemap:'))
+		{
+			file_put_contents($rob_location, $rb_existing ."\r\n\r\n".$rob_sitmp_line);
+		}
+	}
+}
+
 
 
 		
 add_action( 'template_redirect', 'sitemap2' );
-/**
- * Google XML Sitemap
- *
- * @since 0.1.1
- *
- * @global type $wpdb
- *
- * @return type
- */
 function sitemap2() {
   if ( ! preg_match( '/sitemap\.xml$/', $_SERVER['REQUEST_URI'] ) ) {
     return;
