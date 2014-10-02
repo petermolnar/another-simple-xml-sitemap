@@ -4,7 +4,7 @@
 
  * Plugin Name: Another Simple XML Sitemap
  * Description: (If you have more thatn 50 000 posts, then dont use this plugin, but use plugins like "Better WordPress Google XML Sitemaps" or etc..) After activation, This plugin automatically adds the sitemap to your site (can be accessed at yoursite.com/sitemap.xml), also, this plugin writes the sitemap url in your robots.txt file, which is a good for search engines. 
- * Author: selnomeria 
+ * contributors: selnomeria 
  * Original Author: Cor van Noorloos
  * @license http://www.opensource.org/licenses/gpl-license.php GPL v2.0 (or later)
  * Version: 0.1.1

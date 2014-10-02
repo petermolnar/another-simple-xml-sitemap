@@ -1,7 +1,6 @@
 === Another Simple XML Sitemap  ===
 Contributors: Cor van Noorloos,selnomeria
 Donate link: https://github.com/corvannoorloos/google-xml-sitemap
-Author: selnomeria
 Tags: simple,xml,sitemap
 Requires at least: 3.0
 Tested up to: 3.9
