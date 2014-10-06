@@ -15,8 +15,8 @@
 register_activation_hook( __FILE__, 'my_asxs_plugin_activatee' );
 function my_asxs_plugin_activatee() 
 {
-	//insert "ON"
-	update_option('asxs_sitemap_swith','onn');
+	//insert "OFF" while installed
+	update_option('asxs_sitemap_swith','off');
 	
 	//modify robots.txt
 	$rob_sitmp_line='Sitemap: '.home_url()."/sitemap.xml\r\n\r\n";
