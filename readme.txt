@@ -7,11 +7,13 @@ Tested up to: 3.9
 Stable tag: 1.0.1
 License: Free
 
-Adds a sitemap.xml to your site, for a better search engine visibility;
+Add a sitemap at YOURSITE.COM/sitemap.xml
 
 == Description ==
+At first, please view MUST-HAVE PLUGINS : http://codesphpjs.blogspot.com/2014/10/must-have-wordpress-plugins.html
+PLUS, this plugin writes the sitemap url in your robots.txt file, which is a good for search engines. 
+[NOTE!!!: If you have more than 50 000 posts, then dont use this plugin, but use plugins like "Better WordPress Google XML Sitemaps" or etc..]
 
-If you have more thatn 50 000 posts, then dont use this plugin, but use plugins like "Better WordPress Google XML Sitemaps" or etc..) After activation, This plugin automatically adds the sitemap to your site (can be accessed at yoursite.com/sitemap.xml), also, this plugin writes the sitemap url in your robots.txt file, which is a good for search engines. 
 
 
 
@@ -27,7 +29,7 @@ If you have more thatn 50 000 posts, then dont use this plugin, but use plugins 
 == Changelog ==
 Nothing yet.
 
-= 0.1 = 
+= 1.0.1 = 
 
 the first version of the plugin.
 

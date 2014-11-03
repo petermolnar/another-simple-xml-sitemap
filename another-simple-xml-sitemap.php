@@ -1,15 +1,13 @@
 <?php
-/**
- * Based on "Google XML Sitemap" -  https://github.com/corvannoorloos/google-xml-sitemap
-
-
- * Plugin Name: Another Simple XML Sitemap
- * Description: (If you have more than 50 000 posts, better to use plugins like "Better WordPress Google XML Sitemaps" or etc..) After activation, this plugin automatically adds the sitemap (yoursite.com/sitemap.xml), also, this plugin writes the sitemap url in your robots.txt file, which is a good for search engines  (ON-OFF under settings).
- * contributors: selnomeria 
- * Original Author: Cor van Noorloos
- * @license http://www.opensource.org/licenses/gpl-license.php GPL v2.0 (or later)
- * Version: 1.1
- */
+/*
+Plugin Name: Another Simple XML Sitemap
+Description:  Add a sitemap at YOURSITE.COM/sitemap.xml (At first, VIEW MUST-HAVE PLUGINS : http://codesphpjs.blogspot.com/2014/10/must-have-wordpress-plugins.html ).
+This plugin writes the sitemap url in your robots.txt file, which is a good for search engines  (ON-OFF under settings).
+contributors: selnomeria 
+Original Author: ( Based on "Google XML Sitemap" -  https://github.com/corvannoorloos/google-xml-sitemap )
+@license http://www.opensource.org/licenses/gpl-license.php GPL v2.0 (or later)
+Version: 1.1
+*/
   
   
 register_activation_hook( __FILE__, 'my_asxs_plugin_activatee' );
