@@ -48,22 +48,21 @@ function asxs_sitemap2() {
 		//============================TYPICAL SITEMAP==============================
 		if ($Typical_S){
 			$partNumber= str_replace(array($Normal_Sitemap_urltype,'.xml') , '',  $_SERVER['REQUEST_URI']);
-					//##################### include "homepage" link ########################
-					$xml.= ($partNumber ==1 ) ? "\t<url>" . "\n".		"\t\t<loc>" . home_url( '/' ) . "</loc>\n".	"\t\t<lastmod>" . mysql2date( 'Y-m-d\TH:i:s+00:00', get_lastpostmodified( 'GMT' ), false ) . "</lastmod>\n". "\t\t<changefreq>" . 'daily' . "</changefreq>\n". "\t\t<priority>" . '1' . "</priority>\n". "\t</url>" . "\n"		: '';
+					//##################### include "homepage" url ########################
+					$xml.= ($partNumber ==1 ) ? "\t<url>" . "\n".		"\t\t<loc>" . home_url( '/' ) . "</loc>\n".	"\t\t<lastmod>" . mysql2date( 'Y-m-d H:i:s', get_lastpostmodified( 'GMT' ), false ) . "</lastmod>\n". "\t\t<changefreq>" . 'daily' . "</changefreq>\n". "\t\t<priority>" . '1' . "</priority>\n". "\t</url>" . "\n"		: '';
 					// #####################################################################
 			$posts = $wpdb->get_results( "SELECT ID, post_title, post_modified_gmt	FROM $wpdb->posts WHERE post_status = 'publish'	AND post_password = '' ORDER BY post_type DESC, post_modified DESC LIMIT 50000 OFFSET ". ($partNumber-1) * 50000);
+			$frontpage_id=get_option( 'page_on_front' );
 			$xml=  '<urlset '.$default.'>' . "\n"; 
 				foreach ( $posts as $post ) {
-					if ( $post->ID != get_option( 'page_on_front' ) ){
-						if ( ! empty( $post->post_title ) ) {
+					if (!empty($post->post_title) &&  $post->ID != $frontpage_id ) {
 						$xml .=
 						"\t<url>\n".
 							"\t\t<loc>" . get_permalink( $post->ID ) . "</loc>\n".
-							"\t\t<lastmod>" . mysql2date( 'Y-m-d\TH:i:s+00:00', $post->post_modified_gmt, false ) . "</lastmod>\n". //i.e. 2015-01-07T07:47:10+00:00
+							"\t\t<lastmod>" . mysql2date( 'Y-m-d H:i:s', $post->post_modified_gmt, false ) . "</lastmod>\n". //i.e. 2015-01-07T07:47:10+00:00
 							"\t\t<changefreq>" . 'weekly' . "</changefreq>\n".
-							"\t\t<priority>" . '0.8' . "</priority>\n".
+							"\t\t<priority>" . '0.5' . "</priority>\n".
 						"\t</url>\n";
-						}
 					}
 				}
 			$xml .= '</urlset>';
