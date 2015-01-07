@@ -75,6 +75,22 @@ function asxs_sitemap2() {
 			$xml .= '</urlset>';
 			echo ( "$xml" );
 			exit();
+			/* TO DIVIDE SITEMAP into custom sitemaps, here is sample:
+			
+						<sitemapindex 
+							xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+							xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+							http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"
+							xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+							<sitemap>
+								<loc>http://localhost/wp1/my_sitemap_1.xml</loc>
+							</sitemap>
+							<sitemap>
+								<loc>http://localhost/wp1/my_sitemap_2.xml</loc>
+							</sitemap>
+						</sitemapindex>
+			*/
 		}
 	}
 }
