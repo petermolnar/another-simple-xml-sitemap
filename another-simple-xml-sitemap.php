@@ -22,37 +22,6 @@ function my_asxs_plugin_activatee() {
 }
 
 
-add_filter( 'post_type_link', 'func2', 10, 4 );
-function func2( $permalink, $post, $leavename, $sample ) {
-    if ( $post->post_type == 'auud' && get_option( 'permalink_structure' ) ) 
-		{
-        $struct = '/%category%/%postname%';    $rewritecodes = array('%category%','%postname%' );
-		
-        $terms = get_the_terms($post->ID, 'category');       $category = '';
-        $cats = get_the_category($post->ID);
-            if ( $cats ) 
-				{
-					usort($cats, '_usort_terms_by_ID'); // order by ID
-					$category = $cats[0]->slug;
-					if ( $parent = $cats[0]->parent )
-						{
-						$category = get_category_parents($parent, false, '/', true) . $category;
-						}
-				}
-            if ( empty($category) ) 
-				{
-				$default_category = get_category( get_option( 'default_category' ) );
-				$category = is_wp_error( $default_category ) ? '' : $default_category->slug;
-				}
-        $replacements = array( $category,  $post->post_name    );
-
-        // finish off the permalink
-        $permalink = home_url( str_replace( $rewritecodes, $replacements, $struct ) );
-        $permalink = user_trailingslashit($permalink, 'single');
-		}
-    return $permalink;
-}
-
 add_action( 'wp', 'asxs_sitemap2' );
 function asxs_sitemap2() {
 	$Index_Sitemap_url 		= home_url( '/sitemap.xml',$scheme = relative);
