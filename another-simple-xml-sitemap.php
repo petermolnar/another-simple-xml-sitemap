@@ -6,7 +6,7 @@ This plugin writes the sitemap url in your robots.txt file, which is a good for 
 contributors: selnomeria 
 Original Author: ( Based on "Google XML Sitemap" -  https://github.com/corvannoorloos/google-xml-sitemap )
 @license http://www.opensource.org/licenses/gpl-license.php GPL v2.0 (or later)
-Version: 1.1
+Version: 1.2
 */
 
   

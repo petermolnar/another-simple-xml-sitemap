@@ -1,10 +1,10 @@
 === Another Simple XML Sitemap  ===
-Contributors: Cor van Noorloos,selnomeria
+Contributors: selnomeria,Cor van Noorloos,
 Donate link: https://github.com/corvannoorloos/google-xml-sitemap
-Tags: simple,xml,sitemap
+Tags: simple,xml,sitemap,google,
 Requires at least: 3.0
-Tested up to: 3.9
-Stable tag: 1.0.1
+Tested up to: 4.2
+Stable tag: 1.2
 License: Free
 
 Add a sitemap at YOURSITE.COM/sitemap.xml  [Supports unlimited (+50000) posts]
@@ -12,7 +12,7 @@ Add a sitemap at YOURSITE.COM/sitemap.xml  [Supports unlimited (+50000) posts]
 == Description ==
 1) sitemap is Plain, without any styles..Enjoy!
 2) This plugin writes the sitemap url in your robots.txt file, which is a good for search engines.
-3) p.s. please, VIEW other MUST-HAVE PLUGINS : http://codesphpjs.blogspot.com/2014/10/must-have-wordpress-plugins.html 
+3) p.s. VIEW other MUST-HAVE PLUGINS : http://codesphpjs.blogspot.com/2014/10/must-have-wordpress-plugins.html 
 
 
 
@@ -26,7 +26,10 @@ Add a sitemap at YOURSITE.COM/sitemap.xml  [Supports unlimited (+50000) posts]
 
 
 == Changelog ==
-Nothing yet.
+
+= 1.2 = 
+ _ Bugs fixed!
+ _ Now, sitemap is Unlimited (+50 000 posts are support)
 
 = 1.0.1 = 
 
