@@ -7,13 +7,12 @@ Tested up to: 3.9
 Stable tag: 1.0.1
 License: Free
 
-Add a sitemap at YOURSITE.COM/sitemap.xml 
+Add a sitemap at YOURSITE.COM/sitemap.xml  [Supports unlimited (+50000) posts]
 
 == Description ==
-At first, please view MUST-HAVE PLUGINS : http://codesphpjs.blogspot.com/2014/10/must-have-wordpress-plugins.html
-PLUS, this plugin writes the sitemap url in your robots.txt file, which is a good for search engines. 
-[NOTE!!!: If you have more than 50 000 posts, then dont use this plugin, but use plugins like "Better WordPress Google XML Sitemaps" or etc..]
-
+1) sitemap is Plain, without any styles..Enjoy!
+2) This plugin writes the sitemap url in your robots.txt file, which is a good for search engines.
+3) p.s. please, VIEW other MUST-HAVE PLUGINS : http://codesphpjs.blogspot.com/2014/10/must-have-wordpress-plugins.html 
 
 
 
