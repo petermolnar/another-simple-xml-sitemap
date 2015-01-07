@@ -21,6 +21,8 @@ function my_asxs_plugin_activatee() {
 			}
 }
 
+// ===== IF YOU WANT TO MODIFY Permalink, it's better not to modify this page, but modify permalinks with a hook:
+// add_filter( 'post_link'................       p.s.  for Custom Types, use 'post_type_link'
 
 add_action( 'wp', 'asxs_sitemap2' );
 function asxs_sitemap2() {
