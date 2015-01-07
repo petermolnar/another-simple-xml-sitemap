@@ -7,7 +7,7 @@ Tested up to: 3.9
 Stable tag: 1.0.1
 License: Free
 
-Add a sitemap at YOURSITE.COM/sitemap.xml
+Add a sitemap at YOURSITE.COM/sitemap.xml 
 
 == Description ==
 At first, please view MUST-HAVE PLUGINS : http://codesphpjs.blogspot.com/2014/10/must-have-wordpress-plugins.html
