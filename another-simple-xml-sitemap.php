@@ -3,10 +3,10 @@
 Plugin Name: Another Simple XML Sitemap
 Description:  Add a sitemap at YOURSITE.COM/sitemap.xml [Supports unlimited (+50000) posts;  sitemap is Plain, without any styles..Enjoy!] (VIEW other MUST-HAVE PLUGINS : http://codesphpjs.blogspot.com/2014/10/must-have-wordpress-plugins.html ).
 This plugin writes the sitemap url in your robots.txt file, which is a good for search engines.
-author: selnomeria 
-@Original @uthor: ( Based on "Google XML Sitemap" -  https://github.com/corvannoorloos/google-xml-sitemap )
+contributors: selnomeria 
+Original Author: ( Based on "Google XML Sitemap" -  https://github.com/corvannoorloos/google-xml-sitemap )
 @license http://www.opensource.org/licenses/gpl-license.php GPL v2.0 (or later)
-Version: 1.2
+Version: 1.1
 */
 
   
@@ -21,8 +21,39 @@ function my_asxs_plugin_activatee() {
 			}
 }
 
+
+add_filter( 'post_type_link', 'func2', 10, 4 );
+function func2( $permalink, $post, $leavename, $sample ) {
+    if ( $post->post_type == 'auud' && get_option( 'permalink_structure' ) ) 
+		{
+        $struct = '/%category%/%postname%';    $rewritecodes = array('%category%','%postname%' );
 		
-add_action( 'init', 'asxs_sitemap2' );
+        $terms = get_the_terms($post->ID, 'category');       $category = '';
+        $cats = get_the_category($post->ID);
+            if ( $cats ) 
+				{
+					usort($cats, '_usort_terms_by_ID'); // order by ID
+					$category = $cats[0]->slug;
+					if ( $parent = $cats[0]->parent )
+						{
+						$category = get_category_parents($parent, false, '/', true) . $category;
+						}
+				}
+            if ( empty($category) ) 
+				{
+				$default_category = get_category( get_option( 'default_category' ) );
+				$category = is_wp_error( $default_category ) ? '' : $default_category->slug;
+				}
+        $replacements = array( $category,  $post->post_name    );
+
+        // finish off the permalink
+        $permalink = home_url( str_replace( $rewritecodes, $replacements, $struct ) );
+        $permalink = user_trailingslashit($permalink, 'single');
+		}
+    return $permalink;
+}
+
+add_action( 'wp', 'asxs_sitemap2' );
 function asxs_sitemap2() {
 	$Index_Sitemap_url 		= home_url( '/sitemap.xml',$scheme = relative);
 	$Normal_Sitemap_urltype	= home_url( '/sitemap_part_',$scheme = relative);
@@ -46,14 +77,14 @@ function asxs_sitemap2() {
 		}
 
 		//============================TYPICAL SITEMAP==============================
-		if ($Typical_S){
-			$partNumber= str_replace(array($Normal_Sitemap_urltype,'.xml') , '',  $_SERVER['REQUEST_URI']);
-					//##################### include "homepage" url ########################
-					$xml.= ($partNumber ==1 ) ? "\t<url>" . "\n".		"\t\t<loc>" . home_url( '/' ) . "</loc>\n".	"\t\t<lastmod>" . mysql2date( 'Y-m-d H:i:s', get_lastpostmodified( 'GMT' ), false ) . "</lastmod>\n". "\t\t<changefreq>" . 'daily' . "</changefreq>\n". "\t\t<priority>" . '1' . "</priority>\n". "\t</url>" . "\n"		: '';
-					// #####################################################################
+		if ($Typical_S){ 
+					preg_match("#$Normal_Sitemap_urltype(.*?)\.xml#si" , $_SERVER['REQUEST_URI'], $new  );  $partNumber=$new[1]; 
 			$posts = $wpdb->get_results( "SELECT ID, post_title, post_modified_gmt	FROM $wpdb->posts WHERE post_status = 'publish'	AND post_password = '' ORDER BY post_type DESC, post_modified DESC LIMIT 50000 OFFSET ". ($partNumber-1) * 50000);
 			$frontpage_id=get_option( 'page_on_front' );
-			$xml=  '<urlset '.$default.'>' . "\n"; 
+			$xml =  '<urlset '.$default.'>' . "\n"; 
+					//##################### include "homepage" url ########################
+					$xml .=  ($partNumber ==1 ) ?		"\t<url>" . "\n".		"\t\t<loc>" . home_url( '/' ) . "</loc>\n".	"\t\t<lastmod>" . mysql2date( 'Y-m-d H:i:s', get_lastpostmodified( 'GMT' ), false ) . "</lastmod>\n". "\t\t<changefreq>" . 'daily' . "</changefreq>\n". "\t\t<priority>" . '1' . "</priority>\n". "\t</url>" . "\n"	 : '';
+					// #####################################################################
 				foreach ( $posts as $post ) {
 					if (!empty($post->post_title) &&  $post->ID != $frontpage_id ) {
 						$xml .=
