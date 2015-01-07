@@ -8,7 +8,56 @@ Original Author: ( Based on "Google XML Sitemap" -  https://github.com/corvannoo
 @license http://www.opensource.org/licenses/gpl-license.php GPL v2.0 (or later)
 Version: 1.1
 */
-  
+
+
+
+
+			/* 						
+			------------This is typical sitemap output------------------------------
+						<urlset 
+							xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+							xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 
+							http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+							xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" >
+							<url>
+								<loc>http://localhost/</loc>
+								<lastmod>2015-01-07T07:47:10+00:00</lastmod>
+								<changefreq>daily</changefreq>
+								<priority>1</priority>
+							</url>	
+							<url>
+								<loc>http://localhost/hello-world/</loc>
+								<lastmod>2015-01-07T07:47:10+00:00</lastmod>
+								<changefreq>weekly</changefreq>
+								<priority>0.8</priority>
+							</url>
+						</urlset>
+						
+						
+						
+						
+			---------------TO DIVIDE SITEMAP into custom sitemaps, here is sample-----------------
+			
+						<sitemapindex 
+							xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+							xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+							http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"
+							xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+							<sitemap>
+								<loc>http://localhost/my_sitemap_1.xml</loc>
+							</sitemap>
+							<sitemap>
+								<loc>http://localhost/my_sitemap_2.xml</loc>
+							</sitemap>
+						</sitemapindex>
+			*/
+			
+			
+			
+			
+			
+			
   
 register_activation_hook( __FILE__, 'my_asxs_plugin_activatee' );
 function my_asxs_plugin_activatee() {
@@ -25,73 +74,43 @@ function my_asxs_plugin_activatee() {
 		}
 }
 
-
-
 		
 add_action( 'init', 'asxs_sitemap2' );
 function asxs_sitemap2() {
 	$sitemap_location = home_url( '/sitemap.xml',$scheme = relative);
-	if ($_SERVER['REQUEST_URI'] == $sitemap_location.'/'){
-			header("Cache-Control: no-store, no-cache, must-revalidate");
-			header("Expires: Thu, 01 Jan 1970 00:00:00 GMT");
-			header("HTTP/1.1 301 Moved Permanently");
-		header("Location: ".  $sitemap_location ) or die('another simple xml sitemap cant redirect. error_734');
-	}
-	elseif ($_SERVER['REQUEST_URI'] == $sitemap_location)	{ 
-		if (get_option('asxs_sitemap_swith') == 'onn' )	{
-			global $wpdb;
-			$posts = $wpdb->get_results( "SELECT ID, post_title, post_modified_gmt
-				FROM $wpdb->posts
-				WHERE post_status = 'publish'
-				AND post_password = ''
-				ORDER BY post_type DESC, post_modified DESC
-				LIMIT 50000" );
-			header( "HTTP/1.1 200 OK" );
-			header( 'X-Robots-Tag: noindex, follow', true );
-			header( 'Content-Type: text/xml' );
-			echo '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . '"?>' . "\n";
-			echo '<!-- generator="' . home_url( '/' ) . ' ('.basename(__FILE__).')" -->' . "\n";
-			$xml  = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">' . "\n";
-			$xml .= "\t<url>" . "\n";
-			$xml .= "\t\t<loc>" . home_url( '/' ) . "</loc>\n";
-			$xml .= "\t\t<lastmod>" . mysql2date( 'Y-m-d\TH:i:s+00:00', get_lastpostmodified( 'GMT' ), false ) . "</lastmod>\n";
-			$xml .= "\t\t<changefreq>" . 'daily' . "</changefreq>\n";
-			$xml .= "\t\t<priority>" . '1' . "</priority>\n";
-			$xml .= "\t</url>" . "\n";
-			foreach ( $posts as $post ) 
-			{
-				if ( $post->ID == get_option( 'page_on_front' ) )
-				  continue;
-				if ( ! empty( $post->post_title ) ) 
-				{
-				  $xml .= "\t<url>\n";
-				  $xml .= "\t\t<loc>" . get_permalink( $post->ID ) . "</loc>\n";
-				  $xml .= "\t\t<lastmod>" . mysql2date( 'Y-m-d\TH:i:s+00:00', $post->post_modified_gmt, false ) . "</lastmod>\n";
-				  $xml .= "\t\t<changefreq>" . 'weekly' . "</changefreq>\n";
-				  $xml .= "\t\t<priority>" . '0.8' . "</priority>\n";
-				  $xml .= "\t</url>\n";
-				}
-			}
+	if ($sitemap_location == $_SERVER['REQUEST_URI'])	{ 
+		if (get_option('asxs_sitemap_swith') == 'onn' )	{ global $wpdb;
+			$posts = $wpdb->get_results( "SELECT ID, post_title, post_modified_gmt	FROM $wpdb->posts WHERE post_status = 'publish'	AND post_password = '' ORDER BY post_type DESC, post_modified DESC LIMIT 50000" );
+			header( "HTTP/1.1 200 OK" );header( 'X-Robots-Tag: noindex, follow', true );header( 'Content-Type: text/xml' );
+			$xml= '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . '"?>' . "\n".
+					'<!-- generator="' . home_url( '/' ) . ' ('.basename(__FILE__).')" -->' . "\n".
+					'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">' . "\n".
+					//include "homepage" link
+					"\t<url>" . "\n".
+						"\t\t<loc>" . home_url( '/' ) . "</loc>\n".
+						"\t\t<lastmod>" . mysql2date( 'Y-m-d\TH:i:s+00:00', get_lastpostmodified( 'GMT' ), false ) . "</lastmod>\n".
+						"\t\t<changefreq>" . 'daily' . "</changefreq>\n".
+						"\t\t<priority>" . '1' . "</priority>\n".
+					"\t</url>" . "\n";
+						//### include "homepage" link ###
+						foreach ( $posts as $post ) {
+							if ( $post->ID != get_option( 'page_on_front' ) ){
+								if ( ! empty( $post->post_title ) ) {
+								  $xml .="\t<url>\n".
+											"\t\t<loc>" . get_permalink( $post->ID ) . "</loc>\n".
+											"\t\t<lastmod>" . mysql2date( 'Y-m-d\TH:i:s+00:00', $post->post_modified_gmt, false ) . "</lastmod>\n".
+											"\t\t<changefreq>" . 'weekly' . "</changefreq>\n".
+											"\t\t<priority>" . '0.8' . "</priority>\n".
+										 "\t</url>\n";
+								}
+							}
+						}
 			$xml .= '</urlset>';
-			echo ( "$xml" );
-			exit();
-			/* TO DIVIDE SITEMAP into custom sitemaps, here is sample:
-			
-						<sitemapindex 
-							xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-							xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-							http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"
-							xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-							<sitemap>
-								<loc>http://localhost/wp1/my_sitemap_1.xml</loc>
-							</sitemap>
-							<sitemap>
-								<loc>http://localhost/wp1/my_sitemap_2.xml</loc>
-							</sitemap>
-						</sitemapindex>
-			*/
+			die($xml);
 		}
+	}
+	elseif ($sitemap_location.'/' ==$_SERVER['REQUEST_URI']){
+			header("Cache-Control: no-store, no-cache, must-revalidate");header("Expires: Thu, 01 Jan 1970 00:00:00 GMT");header("HTTP/1.1 301 Moved Permanently");	header("Location: ".  $sitemap_location ) or die('another simple xml sitemap cant redirect. error_734');
 	}
 }
 
@@ -99,24 +118,19 @@ function asxs_sitemap2() {
 
 
 
-add_action('admin_menu','asxs_outputt'); function asxs_outputt() { add_submenu_page( 'options-general.php', 'Another Simple XML Sitemap', 'Another Simple XML Sitemap', 'manage_options', 'asxs-sitemaap', 'asxs_output_pagee' ); }
-function asxs_output_pagee()
-{
-	if (!empty($_POST['asxs_sitemap_onoff']))
-	{
-		update_option('asxs_sitemap_swith',$_POST['asxs_sitemap_onoff']);
-	}
+add_action('admin_menu','asxs_outputt'); function asxs_outputt() { add_submenu_page( 'options-general.php', 'Another Simple XML Sitemap', 'Another Simple XML Sitemap', 'manage_options', 'asxs-sitemaap', 'asxs_output_pagee' ); } function asxs_output_pagee() {
+	if (!empty($_POST['asxs_sitemap_onoff']))	{	update_option('asxs_sitemap_swith',$_POST['asxs_sitemap_onoff']);	}
 	$optvalue = get_option('asxs_sitemap_swith');
 	$onoff2 = 	$optvalue == 'off' ? 'checked' : '';
 	$onoff1 = 	$optvalue == 'onn' || empty($optvalue) ? 'checked' : '';
 	?>
 	
 	<div class="asxs_pg" style="margin:50px 0 0 50px;">
-	<form name="" class="" action="" method="POST">
-	Sitemap (can be accessed at <b><a href="<?php echo get_bloginfo('url');?>/sitemap.xml"><?php echo get_bloginfo('url');?>/sitemap.xml</a>)<br/>
-	ON<input type="radio" name="asxs_sitemap_onoff" value="onn" <?php echo $onoff1;?> /> &nbsp;&nbsp; OFF<input type="radio" name="asxs_sitemap_onoff" value="off"  <?php echo $onoff2;?> />
-	<input type="submit" value="UPDATE" />
-	</form>
+		<form name="" class="" action="" method="POST">
+		Sitemap (can be accessed at <b><a href="<?php echo get_bloginfo('url');?>/sitemap.xml"><?php echo get_bloginfo('url');?>/sitemap.xml</a>)<br/>: 		ON<input type="radio" name="asxs_sitemap_onoff" value="onn" <?php echo $onoff1;?> /> &nbsp;&nbsp; OFF<input type="radio" name="asxs_sitemap_onoff" value="off"  <?php echo $onoff2;?> />		
+		<input type="submit" value="UPDATE" />
+		</form>
+	</div>
 	<?php
 }
 ?>
