@@ -7,12 +7,14 @@ Tested up to: 4.2
 Stable tag: 1.2
 License: Free
 
-Add a sitemap at YOURSITE.COM/sitemap.xml  [Supports unlimited (+50000) posts]
+Plugin is discontinued. (VIEW MUST-HAVE PLUGINS FOR EVERYONE: http://bitly.com/MWPLUGINS  )
 
 == Description ==
+
+Plugin is discontinued. (VIEW MUST-HAVE PLUGINS FOR EVERYONE: http://bitly.com/MWPLUGINS  )
+
 1) sitemap is Plain, without any styles..Enjoy!
 2) This plugin writes the sitemap url in your robots.txt file, which is a good for search engines.
-3) p.s. VIEW other MUST-HAVE PLUGINS : http://codesphpjs.blogspot.com/2014/10/must-have-wordpress-plugins.html 
 
 
 
