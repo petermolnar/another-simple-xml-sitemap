@@ -1,8 +1,7 @@
 <?php
 /*
 Plugin Name: Another Simple XML Sitemap
-Description:  Plugin is discontinued. (P.S.  VIEW MUST-HAVE PLUGINS FOR EVERYONE: http://bitly.com/MWPLUGINS  ).
-	DescriptionZ:  Add a sitemap at YOURSITE.COM/sitemap.xml [Supports unlimited (+50000) posts;  sitemap is Plain, without any styles..Enjoy!]  This plugin writes the sitemap url in your robots.txt file, which is a good for search engines.
+Description:  Plugin ended. view MUST-HAVE PLUGINS: http://bitly.com/MWPLUGINS        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - (-OLD DESCRIPTION-: Add a sitemap at YOURSITE.COM/sitemap.xml [Supports unlimited (+50000) posts;  sitemap is Plain, without any styles..Enjoy!]  This plugin writes the sitemap url in your robots.txt file, which is a good for search engines.
 contributors: selnomeria 
 Original Author: ( Based on "Google XML Sitemap" -  https://github.com/corvannoorloos/google-xml-sitemap )
 @license http://www.opensource.org/licenses/gpl-license.php GPL v2.0 (or later)
