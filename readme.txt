@@ -1,5 +1,5 @@
 === Another Simple XML Sitemap  ===
-Contributors: selnomeria
+Contributors: selnomeria,Cor van Noorloos,
 Donate link: https://github.com/corvannoorloos/google-xml-sitemap
 Tags: simple,xml,sitemap,google,
 Requires at least: 3.0
@@ -7,14 +7,17 @@ Tested up to: 4.2
 Stable tag: 1.2
 License: Free
 
-Plugin ended. view MUST-HAVE PLUGINS: http://bitly.com/MWPLUGINS          (OLD DESCRIPTION: Add a sitemap at YOURSITE.COM/sitemap.xml [Supports unlimited (+50000) posts;  sitemap is Plain, without any styles..Enjoy!]  This plugin writes the sitemap url in your robots.txt file, which is a good for search engines. 
+Plugin is discontinued. (VIEW MUST-HAVE PLUGINS FOR EVERYONE: http://bitly.com/MWPLUGINS  )
 
 == Description ==
 
-Plugin ended. view MUST-HAVE PLUGINS: http://bitly.com/MWPLUGINS
+Plugin is discontinued. (VIEW MUST-HAVE PLUGINS FOR EVERYONE: http://bitly.com/MWPLUGINS  )
+
+1) sitemap is Plain, without any styles..Enjoy!
+2) This plugin writes the sitemap url in your robots.txt file, which is a good for search engines.
 
 
-(-OLD DESCRIPTION-: This plugin adds a sitemap at YOURSITE.COM/sitemap.xml [Supports unlimited (+50000) posts;  sitemap is Plain, without any styles..Enjoy!]  This plugin writes the sitemap url in your robots.txt file, which is a good for search engines.  )
+
 == Installation ==
  
  
