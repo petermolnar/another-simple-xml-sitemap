@@ -60,7 +60,7 @@ function asxs_sitemap2() {
 					if (!empty($post->post_title) &&  $post->ID != $frontpage_id ) {
 						$xml .=
 						"\t<url>\n".
-							"\t\t<loc>" . get_permalink( $post->ID ) . "</loc>\n".
+							"\t\t<loc>" . htmlspecialchars(get_permalink( $post->ID )) . "</loc>\n".
 							"\t\t<lastmod>" . mysql2date( 'c', $post->post_modified_gmt, false ) . "</lastmod>\n". //i.e. 2015-01-07 07:47:10
 							"\t\t<changefreq>" . 'weekly' . "</changefreq>\n".
 							"\t\t<priority>" . '0.5' . "</priority>\n".
