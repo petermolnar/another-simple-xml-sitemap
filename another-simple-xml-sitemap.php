@@ -3,18 +3,34 @@
 Plugin Name: Another Simple XML Sitemap
 Plugin URI: https://github.com/petermolnar/another-simple-xml-sitemap
 Description: A dead simple XML sitemap, listing singular() content and home() only.
-Contributors: selnomeria, cadeyrn
+Contributors: cadeyrn, selnomeria
 Author: Peter Molnar <hello@petermolnar.eu>
 Author URI: http://petermolnar.eu/
 Original Author: selnomeria <tazotodua@gmail.com>
-License: GPLv2
-Version: 1.2
+License: GPLv3
+Version: 2.0
+*/
+
+/*
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License, version 3, as
+	published by the Free Software Foundation.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 
 register_activation_hook( __FILE__, 'my_asxs_plugin_activatee' );
 add_action( 'wp', 'asxs_sitemap2' );
-define('ASXS_LIMIT', 999);
+define('ASXS_LIMIT', 9999);
+define('ASXS_EXPIRE', 300);
 
 function my_asxs_plugin_activatee() {
 	//update robots.txt
@@ -65,6 +81,10 @@ function asxs_sitemap2() {
 	 * splits XML per every
 	 */
 	if ( $Index_S ) {
+		$cached_id = 'index';
+		if ( $cached = wp_cache_get ( $cached_id, __FUNCTION__ ) )
+			die($cached);
+
 		$posts = $wpdb->get_results( "SELECT ID, post_title, post_modified_gmt FROM $wpdb->posts WHERE post_status = 'publish' AND post_password = '' ORDER BY post_type DESC, post_modified DESC" );
 		$xml[] = '<sitemapindex '.$default.'>';
 		for ($i=1; $i<(count($posts)/ASXS_LIMIT)+1; $i++) {
@@ -72,13 +92,19 @@ function asxs_sitemap2() {
 		}
 		$xml[] = '</sitemapindex>';
 
-		die(join("\n", $xml));
+		$xml = join("\n", $xml);
+		wp_cache_set ( $cached_id, $xml, __FUNCTION__, ASXS_EXPIRE  );
+		die($xml);
 	}
 
 	// --- NORMAL SITEMAP ---
 	if ($Normal_S) {
 		preg_match("#$Normal_Sitemap_urltype([0-9]+)\.xml#si" , $_SERVER['REQUEST_URI'], $new );
 		$partNumber = $new[1];
+
+		$cached_id = $new[1];
+		if ( $cached = wp_cache_get ( $cached_id, __FUNCTION__ ) )
+			die($cached);
 
 		$posts = $wpdb->get_results( "SELECT ID, post_title, post_modified_gmt FROM $wpdb->posts WHERE post_status = 'publish' AND post_password = '' ORDER BY post_type DESC, post_modified DESC LIMIT ". ASXS_LIMIT ." OFFSET ". ($partNumber-1) * ASXS_LIMIT);
 		$frontpage_id = get_option( 'page_on_front' );
@@ -104,7 +130,9 @@ function asxs_sitemap2() {
 			}
 		}
 		$xml[] = '</urlset>';
-		die(join("\n", $xml));
+		$xml = join("\n", $xml);
+		wp_cache_set ( $cached_id, $xml, __FUNCTION__, ASXS_EXPIRE  );
+		die($xml);
 	}
 }
 ?>
