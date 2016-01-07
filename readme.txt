@@ -2,8 +2,8 @@
 Contributors: cadeyrn, selnomeria,Cor van Noorloos,
 Tags: simple,xml,sitemap,google,
 Requires at least: 3.0
-Tested up to: 4.4
-Stable tag: 2.0
+Tested up to: 4.4.1
+Stable tag: 2.1
 License: GPLv3
 
 A very simple dynamic sitemap plugin, to generate XML sitemap from singular (posts, pages, etc. ) permalinks.
@@ -30,8 +30,15 @@ This plugin is a fork of thank you for [Another Simple XML Sitemap](https://word
 
 == Changelog ==
 
+= 2.1 =
+*2016-01-07*
+
+* lighter database query
+* fixed missing entries for posts with no title
+
+
 = 2.0 =
-*2015-13-03*
+*2015-12-03*
 
 * first forked release
 * slightly refactored code

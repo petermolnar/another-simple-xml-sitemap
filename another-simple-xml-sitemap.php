@@ -8,7 +8,7 @@ Author: Peter Molnar <hello@petermolnar.eu>
 Author URI: http://petermolnar.eu/
 Original Author: selnomeria <tazotodua@gmail.com>
 License: GPLv3
-Version: 2.0
+Version: 2.1
 */
 
 /*
@@ -85,7 +85,7 @@ function asxs_sitemap2() {
 		if ( $cached = wp_cache_get ( $cached_id, __FUNCTION__ ) )
 			die($cached);
 
-		$posts = $wpdb->get_results( "SELECT ID, post_title, post_modified_gmt FROM $wpdb->posts WHERE post_status = 'publish' AND post_password = '' ORDER BY post_type DESC, post_modified DESC" );
+		$posts = $wpdb->get_results( "SELECT ID FROM $wpdb->posts WHERE post_status = 'publish' AND post_password = ''" );
 		$xml[] = '<sitemapindex '.$default.'>';
 		for ($i=1; $i<(count($posts)/ASXS_LIMIT)+1; $i++) {
 			$xml[] = '<sitemap><loc>'.home_url().'/sitemap_part_'. $i .'.xml</loc></sitemap>';
@@ -106,7 +106,7 @@ function asxs_sitemap2() {
 		if ( $cached = wp_cache_get ( $cached_id, __FUNCTION__ ) )
 			die($cached);
 
-		$posts = $wpdb->get_results( "SELECT ID, post_title, post_modified_gmt FROM $wpdb->posts WHERE post_status = 'publish' AND post_password = '' ORDER BY post_type DESC, post_modified DESC LIMIT ". ASXS_LIMIT ." OFFSET ". ($partNumber-1) * ASXS_LIMIT);
+		$posts = $wpdb->get_results( "SELECT ID, post_title, post_name, post_modified_gmt FROM $wpdb->posts WHERE post_status = 'publish' AND post_password = '' ORDER BY post_type DESC, post_modified DESC LIMIT ". ASXS_LIMIT ." OFFSET ". ($partNumber-1) * ASXS_LIMIT);
 		$frontpage_id = get_option( 'page_on_front' );
 
 		$xml[] =  '<urlset '.$default.'>' . "\n";
@@ -120,7 +120,8 @@ function asxs_sitemap2() {
 			"\t</url>\n";
 		}
 		foreach ( $posts as $post ) {
-			if (!empty($post->post_title) &&  $post->ID != $frontpage_id ) {
+			$title = empty($post->post_title) ? $post->post_name : $post->post_title;
+			if (!empty($title) &&  $post->ID != $frontpage_id ) {
 				$xml[] = "\t<url>\n".
 					"\t\t<loc>" . htmlspecialchars(get_permalink( $post->ID )) . "</loc>\n".
 					"\t\t<lastmod>" . mysql2date( 'c', $post->post_modified_gmt, false ) . "</lastmod>\n". //i.e. 2015-01-07 07:47:10
